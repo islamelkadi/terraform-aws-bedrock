@@ -12,6 +12,25 @@ Purpose-built serverless runtime for deploying and scaling AI agents using any o
 - **VPC Support**: Deploy in private subnets for enhanced security
 - **Code or Container Deployment**: Deploy from S3 (Python code) or ECR (containers)
 
+
+
+## Security
+
+### Environment-Based Security Controls
+
+Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) module's security profiles:
+
+| Control | Dev | Staging | Prod |
+|---------|-----|---------|------|
+| VPC deployment | Optional | Recommended | Required |
+| IAM least privilege | Enforced | Enforced | Enforced |
+| CloudWatch Logs | Optional | Required | Required |
+| JWT authorization | Optional | Recommended | Required |
+
+For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
+## Security
+
+#
 ## Usage
 
 ### Basic Usage with Code Deployment (S3)
@@ -251,31 +270,12 @@ The IAM role must have permissions for:
 - `MCP` - Model Context Protocol
 - `A2A` - Agent-to-Agent protocol
 
-## Examples
-
-See the [example/](example/) directory for a complete working example.
-
-## License
-
-Apache 2.0 Licensed. See LICENSE for full details.
 
 ## References
 
 - [Amazon Bedrock AgentCore Runtime Documentation](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
 - [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagentcore_agent_runtime)
 
-## Environment-Based Security Controls
-
-Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
-
-| Control | Dev | Staging | Prod |
-|---------|-----|---------|------|
-| VPC deployment | Optional | Recommended | Required |
-| IAM least privilege | Enforced | Enforced | Enforced |
-| CloudWatch Logs | Optional | Required | Required |
-| JWT authorization | Optional | Recommended | Required |
-
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
 
 <!-- BEGIN_TF_DOCS -->
 
@@ -382,7 +382,3 @@ module "agentcore_runtime" {
 
 See [example/](example/) for a complete working example with all features.
 
-## License
-
-MIT Licensed. See [LICENSE](LICENSE) for full details.
-<!-- END_TF_DOCS -->
