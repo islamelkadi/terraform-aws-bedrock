@@ -18,7 +18,7 @@ This module implements security controls with an override system:
 
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
 
   # ... other configuration ...
 
@@ -48,7 +48,7 @@ For full details on security profiles and how controls vary by environment, see 
 
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
 
   namespace   = "example"
   environment = "prod"
@@ -72,7 +72,7 @@ module "code_interpreter" {
 
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
 
   namespace   = "example"
   environment = "prod"
@@ -137,7 +137,7 @@ Code Interpreter supports three network modes, each with different capabilities 
 **Example**:
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
   
   network_mode       = "PUBLIC"
   execution_role_arn = aws_iam_role.code_interpreter.arn
@@ -170,7 +170,7 @@ module "code_interpreter" {
 **Example**:
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
   
   network_mode       = "SANDBOX"
   execution_role_arn = aws_iam_role.code_interpreter.arn
@@ -223,7 +223,7 @@ print(f"Cash in lieu: ${cash_in_lieu:.2f}")
 **Example**:
 ```hcl
 module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
   
   network_mode       = "VPC"
   execution_role_arn = aws_iam_role.code_interpreter.arn
@@ -369,7 +369,7 @@ Pass the Code Interpreter ID to your AgentCore Runtime:
 
 ```hcl
 module "agentcore_runtime" {
-  source = "../modules/terraform-aws-bedrock/modules/agentcore-runtime"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
 
   # ... other configuration ...
 
@@ -417,7 +417,7 @@ Instead, the AI agent dynamically generates Python code to handle unprecedented 
 # Basic Code Interpreter Example
 
 module "code_interpreter" {
-  source = "../"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
 
   namespace   = var.namespace
   environment = var.environment

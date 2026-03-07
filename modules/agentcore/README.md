@@ -224,7 +224,7 @@ module "test_agent" {
 # Basic Bedrock Agent Example
 
 module "bedrock_agent" {
-  source = "../"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore"
 
   namespace   = var.namespace
   environment = var.environment

@@ -33,7 +33,7 @@ For full details on security profiles and how controls vary by environment, see 
 
 ```hcl
 module "agentcore_runtime" {
-  source = "../../modules/terraform-aws-bedrock/modules/agentcore-runtime"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
 
   namespace   = "example"
   environment = "dev"
@@ -76,7 +76,7 @@ module "agentcore_runtime" {
 
 ```hcl
 module "agentcore_runtime" {
-  source = "../../modules/terraform-aws-bedrock/modules/agentcore-runtime"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
 
   namespace   = "example"
   environment = "prod"
@@ -107,7 +107,7 @@ module "agentcore_runtime" {
 
 ```hcl
 module "agentcore_runtime" {
-  source = "../../modules/terraform-aws-bedrock/modules/agentcore-runtime"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
 
   namespace   = "example"
   environment = "prod"
@@ -149,7 +149,7 @@ module "agentcore_runtime" {
 
 ```hcl
 module "agentcore_runtime" {
-  source = "../../modules/terraform-aws-bedrock/modules/agentcore-runtime"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
 
   namespace   = "example"
   environment = "dev"
@@ -279,7 +279,7 @@ The IAM role must have permissions for:
 # Basic AgentCore Runtime Example
 
 module "agentcore_runtime" {
-  source = "../"
+  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
 
   namespace   = var.namespace
   environment = var.environment
