@@ -17,38 +17,10 @@ make bootstrap
 
 This will install/upgrade: tfenv, Terraform (via tfenv), tflint, terraform-docs, checkov, and pre-commit.
 
-## Submodules
 
-| Submodule | Description |
-|-----------|-------------|
-| [agentcore](modules/agentcore/) | Bedrock Agents with knowledge bases, action groups, and aliases |
-| [agentcore-runtime](modules/agentcore-runtime/) | AgentCore Runtime with S3-based code deployment |
-| [code-interpreter](modules/code-interpreter/) | Bedrock Code Interpreter in SANDBOX or VPC mode |
+## Security
 
-## Usage
-
-```hcl
-module "bedrock_agent" {
-  source = "path/to/terraform-aws-bedrock/modules/agentcore"
-
-  namespace   = "example"
-  environment = "prod"
-  name        = "event-normalizer"
-  region      = "us-east-1"
-
-  model_id    = "anthropic.claude-3-opus-20240229-v1:0"
-  instruction = "You are an expert at parsing corporate actions event data."
-  description = "Event Normalizer Agent"
-
-  kms_key_arn = var.kms_key_arn
-
-  agent_alias_name = "production"
-
-  tags = var.tags
-}
-```
-
-## Security Controls
+### Security Controls
 
 Implements controls for FSBP, CIS, NIST 800-53/171, and PCI DSS v4.0:
 
@@ -57,6 +29,27 @@ Implements controls for FSBP, CIS, NIST 800-53/171, and PCI DSS v4.0:
 - CloudWatch Logs for agent invocation audit trail
 - Content filtering guardrails support
 - Security control overrides with audit justification
+
+### Environment-Based Security Controls
+
+Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
+
+| Control | Dev | Staging | Prod |
+|---------|-----|---------|------|
+| KMS encryption | Optional | Required | Required |
+| IAM least privilege | Enforced | Enforced | Enforced |
+| CloudWatch Logs | Optional | Required | Required |
+| Content filtering guardrails | Optional | Recommended | Required |
+
+For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
+## Submodules
+
+| Submodule | Description |
+|-----------|-------------|
+| [agentcore](modules/agentcore/) | Bedrock Agents with knowledge bases, action groups, and aliases |
+| [agentcore-runtime](modules/agentcore-runtime/) | AgentCore Runtime with S3-based code deployment |
+| [code-interpreter](modules/code-interpreter/) | Bedrock Code Interpreter in SANDBOX or VPC mode |
+
 
 ## Module Structure
 
@@ -94,18 +87,6 @@ terraform-aws-bedrock/
 | terraform | >= 1.14.3 |
 | aws | >= 6.34 |
 
-## Environment-Based Security Controls
-
-Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
-
-| Control | Dev | Staging | Prod |
-|---------|-----|---------|------|
-| KMS encryption | Optional | Required | Required |
-| IAM least privilege | Enforced | Enforced | Enforced |
-| CloudWatch Logs | Optional | Required | Required |
-| Content filtering guardrails | Optional | Recommended | Required |
-
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
 
 ## MCP Servers
 
