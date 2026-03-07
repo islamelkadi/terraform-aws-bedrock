@@ -17,7 +17,6 @@ make bootstrap
 
 This will install/upgrade: tfenv, Terraform (via tfenv), tflint, terraform-docs, checkov, and pre-commit.
 
-
 ## Security
 
 ### Security Controls
@@ -32,7 +31,7 @@ Implements controls for FSBP, CIS, NIST 800-53/171, and PCI DSS v4.0:
 
 ### Environment-Based Security Controls
 
-Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
+Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) module's security profiles:
 
 | Control | Dev | Staging | Prod |
 |---------|-----|---------|------|
@@ -41,7 +40,7 @@ Security controls are automatically applied based on the environment through the
 | CloudWatch Logs | Optional | Required | Required |
 | Content filtering guardrails | Optional | Recommended | Required |
 
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
+For full details on security profiles and how controls vary by environment, see the [Security Profiles](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) documentation.
 ## Submodules
 
 | Submodule | Description |
@@ -49,7 +48,6 @@ For full details on security profiles and how controls vary by environment, see 
 | [agentcore](modules/agentcore/) | Bedrock Agents with knowledge bases, action groups, and aliases |
 | [agentcore-runtime](modules/agentcore-runtime/) | AgentCore Runtime with S3-based code deployment |
 | [code-interpreter](modules/code-interpreter/) | Bedrock Code Interpreter in SANDBOX or VPC mode |
-
 
 ## Module Structure
 
@@ -87,7 +85,6 @@ terraform-aws-bedrock/
 | terraform | >= 1.14.3 |
 | aws | >= 6.34 |
 
-
 ## MCP Servers
 
 This module includes two [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers configured in `.kiro/settings/mcp.json` for use with Kiro:
@@ -100,7 +97,6 @@ This module includes two [Model Context Protocol (MCP)](https://modelcontextprot
 Both servers run via `uvx` and require no additional installation beyond the [bootstrap](#prerequisites) step.
 
 <!-- BEGIN_TF_DOCS -->
-
 
 ## Requirements
 

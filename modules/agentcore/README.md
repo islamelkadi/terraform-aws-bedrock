@@ -4,13 +4,26 @@ Production-ready AWS Bedrock Agent module with comprehensive security controls, 
 
 ## Table of Contents
 
-- [Security Controls](#security-controls)
+- [Security](#security)
 - [Features](#features)
 - [Usage Examples](#usage-examples)
 - [Requirements](#requirements)
 - [Examples](#examples)
 
-## Security Controls
+## Features
+
+- **Foundation Model Support**: Claude 3, Titan, Jurassic-2, Command, and Llama models
+- **Knowledge Base Integration**: Connect to Bedrock knowledge bases for RAG
+- **Action Groups**: Lambda-backed API integrations for agent capabilities
+- **IAM Role Management**: Automatic role creation with least privilege policies
+- **KMS Encryption**: Optional customer-managed key encryption
+- **Agent Aliases**: Version management with aliases
+- **Prompt Overrides**: Custom prompt templates and inference configuration
+- **Consistent Naming**: Integration with metadata module for standardized resource naming
+
+## Security
+
+### Security Controls
 
 This module implements security controls based on the metadata module's security policy. Controls can be selectively overridden with documented business justification.
 
@@ -41,17 +54,18 @@ security_control_overrides = {
 3. **IAM Policies**: Follow least privilege principle for action group Lambda functions
 4. **Audit Trail**: All overrides require `justification` field for compliance
 
-## Features
+### Environment-Based Security Controls
 
-- **Foundation Model Support**: Claude 3, Titan, Jurassic-2, Command, and Llama models
-- **Knowledge Base Integration**: Connect to Bedrock knowledge bases for RAG
-- **Action Groups**: Lambda-backed API integrations for agent capabilities
-- **IAM Role Management**: Automatic role creation with least privilege policies
-- **KMS Encryption**: Optional customer-managed key encryption
-- **Agent Aliases**: Version management with aliases
-- **Prompt Overrides**: Custom prompt templates and inference configuration
-- **Consistent Naming**: Integration with metadata module for standardized resource naming
+Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) module's security profiles:
 
+| Control | Dev | Staging | Prod |
+|---------|-----|---------|------|
+| KMS encryption | Optional | Required | Required |
+| IAM least privilege | Enforced | Enforced | Enforced |
+| CloudWatch Logs | Optional | Required | Required |
+| Knowledge base encryption | Optional | Required | Required |
+
+For full details on security profiles and how controls vary by environment, see the [Security Profiles](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) documentation.
 ## Usage Examples
 
 ### Example 1: Basic Bedrock Agent
@@ -202,21 +216,7 @@ module "test_agent" {
 }
 ```
 
-## Environment-Based Security Controls
-
-Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
-
-| Control | Dev | Staging | Prod |
-|---------|-----|---------|------|
-| KMS encryption | Optional | Required | Required |
-| IAM least privilege | Enforced | Enforced | Enforced |
-| CloudWatch Logs | Optional | Required | Required |
-| Knowledge base encryption | Optional | Required | Required |
-
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
-
 <!-- BEGIN_TF_DOCS -->
-
 
 ## Usage
 
@@ -314,15 +314,6 @@ No resources.
 | <a name="output_role_arn"></a> [role\_arn](#output\_role\_arn) | ARN of the IAM role used by the Bedrock agent |
 | <a name="output_role_name"></a> [role\_name](#output\_role\_name) | Name of the IAM role used by the Bedrock agent |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags applied to the Bedrock agent |
-
-## Example
-
-See [example/](example/) for a complete working example with all features.
-
-## License
-
-MIT Licensed. See [LICENSE](LICENSE) for full details.
-<!-- END_TF_DOCS -->
 
 ## Examples
 

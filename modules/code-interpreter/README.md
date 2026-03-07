@@ -10,6 +10,38 @@ Terraform module for deploying Amazon Bedrock AgentCore Code Interpreter - a sec
 - Integrated with AgentCore Runtime for seamless agent workflows
 - Security controls with override system
 
+## Security
+
+### Security Controls
+
+This module implements security controls with an override system:
+
+```hcl
+module "code_interpreter" {
+  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
+
+  # ... other configuration ...
+
+  # Override security controls (requires justification)
+  security_control_overrides = {
+    disable_sandbox_requirement = true
+    justification               = "Development environment - PUBLIC mode for testing"
+  }
+}
+```
+
+### Environment-Based Security Controls
+
+Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) module's security profiles:
+
+| Control | Dev | Staging | Prod |
+|---------|-----|---------|------|
+| SANDBOX network mode | Optional | Recommended | Required |
+| IAM least privilege | Enforced | Enforced | Enforced |
+| VPC deployment (if not SANDBOX) | Optional | Recommended | Required |
+| CloudWatch Logs | Optional | Required | Required |
+
+For full details on security profiles and how controls vary by environment, see the [Security Profiles](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) documentation.
 ## Usage
 
 ### Basic Example (SANDBOX mode - recommended)
@@ -362,24 +394,6 @@ response = bedrock.invoke_code_interpreter(
 )
 ```
 
-## Security Controls
-
-This module implements security controls with an override system:
-
-```hcl
-module "code_interpreter" {
-  source = "../modules/terraform-aws-bedrock/modules/code-interpreter"
-
-  # ... other configuration ...
-
-  # Override security controls (requires justification)
-  security_control_overrides = {
-    disable_sandbox_requirement = true
-    justification               = "Development environment - PUBLIC mode for testing"
-  }
-}
-```
-
 ## Architecture Simplification
 
 Code Interpreter eliminates the need for:
@@ -395,25 +409,7 @@ Instead, the AI agent dynamically generates Python code to handle unprecedented 
 - No idle compute costs (unlike Lambda reserved concurrency)
 - SANDBOX mode has no data transfer costs
 
-## License
-
-Apache 2.0 Licensed. See LICENSE for full details.
-
-## Environment-Based Security Controls
-
-Security controls are automatically applied based on the environment through the [terraform-aws-metadata](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles){:target="_blank"} module's security profiles:
-
-| Control | Dev | Staging | Prod |
-|---------|-----|---------|------|
-| SANDBOX network mode | Optional | Recommended | Required |
-| IAM least privilege | Enforced | Enforced | Enforced |
-| VPC deployment (if not SANDBOX) | Optional | Recommended | Required |
-| CloudWatch Logs | Optional | Required | Required |
-
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
-
 <!-- BEGIN_TF_DOCS -->
-
 
 ## Usage
 
@@ -494,7 +490,3 @@ module "code_interpreter" {
 
 See [example/](example/) for a complete working example with all features.
 
-## License
-
-MIT Licensed. See [LICENSE](LICENSE) for full details.
-<!-- END_TF_DOCS -->

@@ -12,8 +12,6 @@ Purpose-built serverless runtime for deploying and scaling AI agents using any o
 - **VPC Support**: Deploy in private subnets for enhanced security
 - **Code or Container Deployment**: Deploy from S3 (Python code) or ECR (containers)
 
-
-
 ## Security
 
 ### Environment-Based Security Controls
@@ -27,10 +25,8 @@ Security controls are automatically applied based on the environment through the
 | CloudWatch Logs | Optional | Required | Required |
 | JWT authorization | Optional | Recommended | Required |
 
-For full details on security profiles and how controls vary by environment, see the <a href="https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles" target="_blank">Security Profiles</a> documentation.
-## Security
+For full details on security profiles and how controls vary by environment, see the [Security Profiles](https://github.com/islamelkadi/terraform-aws-metadata?tab=readme-ov-file#security-profiles) documentation.
 
-#
 ## Usage
 
 ### Basic Usage with Code Deployment (S3)
@@ -270,15 +266,12 @@ The IAM role must have permissions for:
 - `MCP` - Model Context Protocol
 - `A2A` - Agent-to-Agent protocol
 
-
 ## References
 
 - [Amazon Bedrock AgentCore Runtime Documentation](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
 - [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagentcore_agent_runtime)
 
-
 <!-- BEGIN_TF_DOCS -->
-
 
 ## Usage
 
