@@ -35,9 +35,9 @@ data "aws_iam_policy_document" "knowledge_base" {
 # IAM Role for Bedrock Agent (if create_role is true)
 resource "aws_iam_role" "agent" {
   count = var.create_role ? 1 : 0
-  
+
   name = "${module.metadata.resource_prefix}-bedrock-agent"
-  
+
   assume_role_policy = var.assume_role_policy != null ? var.assume_role_policy : jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -50,7 +50,7 @@ resource "aws_iam_role" "agent" {
       }
     ]
   })
-  
+
   tags = merge(
     module.metadata.security_tags,
     var.tags,
@@ -63,7 +63,7 @@ resource "aws_iam_role" "agent" {
 # Attach managed policies to the role
 resource "aws_iam_role_policy_attachment" "agent_managed" {
   for_each = var.create_role ? toset(var.managed_policy_arns) : []
-  
+
   role       = aws_iam_role.agent[0].name
   policy_arn = each.value
 }
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy_attachment" "agent_managed" {
 # Attach inline policies to the role
 resource "aws_iam_role_policy" "agent_inline" {
   for_each = var.create_role ? local.inline_policies : {}
-  
+
   name   = each.key
   role   = aws_iam_role.agent[0].id
   policy = each.value
