@@ -1,3 +1,7 @@
+# Primary Module Example - This demonstrates the terraform-aws-bedrock agentcore-runtime module
+# Supporting infrastructure (VPC) is defined in separate files
+# to keep this example focused on the module's core functionality.
+#
 # Basic AgentCore Runtime Example
 
 module "agentcore_runtime" {
@@ -18,9 +22,10 @@ module "agentcore_runtime" {
     s3_key      = var.s3_key
   }
 
+  # Direct reference to vpc.tf module outputs
   vpc_config = {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = var.security_group_ids
+    subnet_ids         = module.vpc.private_subnet_ids
+    security_group_ids = [module.security_group.security_group_id]
   }
 
   environment_variables = {

@@ -1,3 +1,7 @@
+# Primary Module Example - This demonstrates the terraform-aws-bedrock agentcore module
+# Supporting infrastructure (KMS) is defined in separate files
+# to keep this example focused on the module's core functionality.
+#
 # Basic Bedrock Agent Example
 
 module "bedrock_agent" {
@@ -14,7 +18,8 @@ module "bedrock_agent" {
 
   idle_session_ttl_seconds = var.idle_session_ttl_seconds
 
-  kms_key_arn = var.kms_key_arn
+  # Direct reference to kms.tf module output
+  kms_key_arn = module.kms_key.key_arn
 
   agent_alias_name        = var.agent_alias_name
   agent_alias_description = var.agent_alias_description
