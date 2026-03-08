@@ -411,13 +411,14 @@ Instead, the AI agent dynamically generates Python code to handle unprecedented 
 
 <!-- BEGIN_TF_DOCS -->
 
+
 ## Usage
 
 ```hcl
 # Basic Code Interpreter Example
 
 module "code_interpreter" {
-  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/code-interpreter"
+  source = "../"
 
   namespace   = var.namespace
   environment = var.environment
@@ -449,7 +450,7 @@ module "code_interpreter" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.1.0 |
+| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.0.0 |
 
 ## Resources
 
@@ -461,8 +462,6 @@ module "code_interpreter" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes for naming | `list(string)` | `[]` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to use between name components | `string` | `"-"` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the Code Interpreter | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name (dev, staging, prod) | `string` | n/a | yes |
 | <a name="input_execution_role_arn"></a> [execution\_role\_arn](#input\_execution\_role\_arn) | ARN of the IAM role that the Code Interpreter assumes. Required for SANDBOX mode | `string` | n/a | yes |
@@ -471,7 +470,6 @@ module "code_interpreter" {
 | <a name="input_network_mode"></a> [network\_mode](#input\_network\_mode) | Network mode for the Code Interpreter. Valid values: PUBLIC, SANDBOX, VPC | `string` | `"SANDBOX"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS region where resources will be created | `string` | n/a | yes |
 | <a name="input_security_control_overrides"></a> [security\_control\_overrides](#input\_security\_control\_overrides) | Override specific security controls with documented justification | <pre>object({<br/>    disable_sandbox_requirement = optional(bool, false)<br/>    justification               = optional(string, "")<br/>  })</pre> | <pre>{<br/>  "disable_sandbox_requirement": false,<br/>  "justification": ""<br/>}</pre> | no |
-| <a name="input_security_controls"></a> [security\_controls](#input\_security\_controls) | Security controls configuration from metadata module | <pre>object({<br/>    encryption = object({<br/>      require_kms_customer_managed  = bool<br/>      require_encryption_at_rest    = bool<br/>      require_encryption_in_transit = bool<br/>      enable_kms_key_rotation       = bool<br/>    })<br/>    logging = object({<br/>      require_cloudwatch_logs = bool<br/>      min_log_retention_days  = number<br/>      require_access_logging  = bool<br/>      require_flow_logs       = bool<br/>    })<br/>    monitoring = object({<br/>      enable_xray_tracing         = bool<br/>      enable_enhanced_monitoring  = bool<br/>      enable_performance_insights = bool<br/>      require_cloudtrail          = bool<br/>    })<br/>    network = object({<br/>      require_private_subnets = bool<br/>      require_vpc_endpoints   = bool<br/>      block_public_ingress    = bool<br/>      require_imdsv2          = bool<br/>    })<br/>    compliance = object({<br/>      enable_point_in_time_recovery = bool<br/>      require_reserved_concurrency  = bool<br/>      enable_deletion_protection    = bool<br/>    })<br/>    data_protection = object({<br/>      require_versioning  = bool<br/>      require_mfa_delete  = bool<br/>      require_backup      = bool<br/>      require_lifecycle   = bool<br/>      block_public_access = bool<br/>      require_replication = bool<br/>    })<br/>  })</pre> | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Additional tags to apply to resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_config"></a> [vpc\_config](#input\_vpc\_config) | VPC configuration for the Code Interpreter. Required when network\_mode is VPC | <pre>object({<br/>    subnet_ids         = list(string)<br/>    security_group_ids = list(string)<br/>  })</pre> | `null` | no |
 
@@ -490,3 +488,7 @@ module "code_interpreter" {
 
 See [example/](example/) for a complete working example with all features.
 
+## License
+
+MIT Licensed. See [LICENSE](LICENSE) for full details.
+<!-- END_TF_DOCS -->

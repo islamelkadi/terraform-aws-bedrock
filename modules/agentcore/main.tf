@@ -32,14 +32,11 @@ data "aws_iam_policy_document" "knowledge_base" {
 }
 
 # IAM Role for Bedrock Agent
-module "agent_role" {
-  count  = var.create_role ? 1 : 0
-  source = "../../../terraform-aws-iam/modules/role"
+# IAM Role for Bedrock Agent (if create_role is true)
+resource "aws_iam_role" "agent" {
+  count = var.create_role ? 1 : 0
 
-  namespace   = var.namespace
-  environment = var.environment
-  name        = "${var.name}-bedrock-agent"
-  region      = var.region
+  name = "${module.metadata.resource_prefix}-bedrock-agent"
 
   assume_role_policy = var.assume_role_policy != null ? var.assume_role_policy : jsonencode({
     Version = "2012-10-17"
@@ -54,16 +51,36 @@ module "agent_role" {
     ]
   })
 
-  managed_policy_arns = var.managed_policy_arns
-  inline_policies     = local.inline_policies
+  tags = merge(
+    module.metadata.security_tags,
+    var.tags,
+    {
+      Name = "${module.metadata.resource_prefix}-bedrock-agent"
+    }
+  )
+}
 
-  tags = var.tags
+# Attach managed policies to the role
+resource "aws_iam_role_policy_attachment" "agent_managed" {
+  for_each = var.create_role ? toset(var.managed_policy_arns) : []
+
+  role       = aws_iam_role.agent[0].name
+  policy_arn = each.value
+}
+
+# Attach inline policies to the role
+resource "aws_iam_role_policy" "agent_inline" {
+  for_each = var.create_role ? local.inline_policies : {}
+
+  name   = each.key
+  role   = aws_iam_role.agent[0].id
+  policy = each.value
 }
 
 # Bedrock Agent
 resource "aws_bedrockagent_agent" "this" {
   agent_name              = local.agent_name
-  agent_resource_role_arn = var.create_role ? module.agent_role[0].role_arn : var.role_arn
+  agent_resource_role_arn = var.create_role ? aws_iam_role.agent[0].arn : var.role_arn
   foundation_model        = var.model_id
   instruction             = var.instruction
   description             = var.description

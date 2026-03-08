@@ -273,13 +273,18 @@ The IAM role must have permissions for:
 
 <!-- BEGIN_TF_DOCS -->
 
+
 ## Usage
 
 ```hcl
+# Primary Module Example - This demonstrates the terraform-aws-bedrock agentcore-runtime module
+# Supporting infrastructure (VPC) is defined in separate files
+# to keep this example focused on the module's core functionality.
+#
 # Basic AgentCore Runtime Example
 
 module "agentcore_runtime" {
-  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore-runtime"
+  source = "../"
 
   namespace   = var.namespace
   environment = var.environment
@@ -296,9 +301,10 @@ module "agentcore_runtime" {
     s3_key      = var.s3_key
   }
 
+  # Direct reference to vpc.tf module outputs
   vpc_config = {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = var.security_group_ids
+    subnet_ids         = module.vpc.private_subnet_ids
+    security_group_ids = [module.security_group.security_group_id]
   }
 
   environment_variables = {
@@ -327,7 +333,7 @@ module "agentcore_runtime" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.1.0 |
+| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.0.0 |
 
 ## Resources
 
@@ -339,11 +345,9 @@ module "agentcore_runtime" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes for naming | `list(string)` | `[]` | no |
 | <a name="input_authorizer_configuration"></a> [authorizer\_configuration](#input\_authorizer\_configuration) | Authorization configuration for authenticating incoming requests | <pre>object({<br/>    custom_jwt_authorizer = optional(object({<br/>      discovery_url     = string<br/>      allowed_audiences = optional(list(string))<br/>      allowed_clients   = optional(list(string))<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_code_configuration"></a> [code\_configuration](#input\_code\_configuration) | Code configuration for S3-based deployment. Exactly one of code\_configuration or container\_configuration must be specified | <pre>object({<br/>    entry_point   = list(string)<br/>    runtime       = string<br/>    s3_bucket     = string<br/>    s3_key        = string<br/>    s3_version_id = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_container_configuration"></a> [container\_configuration](#input\_container\_configuration) | Container configuration for ECR-based deployment. Exactly one of code\_configuration or container\_configuration must be specified | <pre>object({<br/>    container_uri = string<br/>  })</pre> | `null` | no |
-| <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to use between name components | `string` | `"-"` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the AgentCore Runtime | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name (dev, staging, prod) | `string` | n/a | yes |
 | <a name="input_environment_variables"></a> [environment\_variables](#input\_environment\_variables) | Map of environment variables to pass to the runtime | `map(string)` | `{}` | no |
@@ -375,3 +379,7 @@ module "agentcore_runtime" {
 
 See [example/](example/) for a complete working example with all features.
 
+## License
+
+MIT Licensed. See [LICENSE](LICENSE) for full details.
+<!-- END_TF_DOCS -->

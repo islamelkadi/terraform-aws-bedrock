@@ -218,13 +218,18 @@ module "test_agent" {
 
 <!-- BEGIN_TF_DOCS -->
 
+
 ## Usage
 
 ```hcl
+# Primary Module Example - This demonstrates the terraform-aws-bedrock agentcore module
+# Supporting infrastructure (KMS) is defined in separate files
+# to keep this example focused on the module's core functionality.
+#
 # Basic Bedrock Agent Example
 
 module "bedrock_agent" {
-  source = "github.com/islamelkadi/terraform-aws-bedrock//modules/agentcore"
+  source = "../"
 
   namespace   = var.namespace
   environment = var.environment
@@ -237,7 +242,8 @@ module "bedrock_agent" {
 
   idle_session_ttl_seconds = var.idle_session_ttl_seconds
 
-  kms_key_arn = var.kms_key_arn
+  # Direct reference to kms.tf module output
+  kms_key_arn = module.kms_key.key_arn
 
   agent_alias_name        = var.agent_alias_name
   agent_alias_description = var.agent_alias_description
@@ -255,17 +261,29 @@ module "bedrock_agent" {
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.34 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.1.0 |
+| <a name="module_metadata"></a> [metadata](#module\_metadata) | github.com/islamelkadi/terraform-aws-metadata | v1.0.0 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_bedrockagent_agent.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagent_agent) | resource |
+| [aws_bedrockagent_agent_action_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagent_agent_action_group) | resource |
+| [aws_bedrockagent_agent_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagent_agent_alias) | resource |
+| [aws_bedrockagent_agent_knowledge_base_association.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/bedrockagent_agent_knowledge_base_association) | resource |
+| [aws_iam_role.agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.agent_inline](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy_attachment.agent_managed](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_policy_document.bedrock_invoke](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.knowledge_base](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -315,7 +333,11 @@ No resources.
 | <a name="output_role_name"></a> [role\_name](#output\_role\_name) | Name of the IAM role used by the Bedrock agent |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags applied to the Bedrock agent |
 
-## Examples
+## Example
 
-See [example/](example/) for a complete working example.
+See [example/](example/) for a complete working example with all features.
 
+## License
+
+MIT Licensed. See [LICENSE](LICENSE) for full details.
+<!-- END_TF_DOCS -->
