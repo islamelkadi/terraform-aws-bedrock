@@ -29,3 +29,7 @@ skip-check:
   # Default Security Group - VPC module responsibility
   - id: CKV2_AWS_12
     comment: "Default security group restrictions should be managed at the VPC module level, not in consuming modules."
+  
+  # Terraform Module Sources - Using semantic versioning tags (commit hash)
+  - id: CKV_TF_1
+    comment: "Using semantic version tags (?ref=v1.0.0) instead of commit hashes for better maintainability and readability."
