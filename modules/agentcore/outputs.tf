@@ -37,12 +37,12 @@ output "agent_alias_name" {
 
 output "role_arn" {
   description = "ARN of the IAM role used by the Bedrock agent"
-  value       = var.create_role ? module.agent_role[0].role_arn : var.role_arn
+  value       = var.create_role ? aws_iam_role.agent[0].arn : var.role_arn
 }
 
 output "role_name" {
   description = "Name of the IAM role used by the Bedrock agent"
-  value       = var.create_role ? module.agent_role[0].role_name : null
+  value       = var.create_role ? aws_iam_role.agent[0].name : null
 }
 
 output "knowledge_base_association_id" {
