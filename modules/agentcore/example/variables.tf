@@ -46,12 +46,6 @@ variable "idle_session_ttl_seconds" {
   default     = 900
 }
 
-variable "kms_key_arn" {
-  description = "ARN of KMS key for encryption"
-  type        = string
-  default     = "arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012"
-}
-
 variable "agent_alias_name" {
   description = "Name for the agent alias"
   type        = string

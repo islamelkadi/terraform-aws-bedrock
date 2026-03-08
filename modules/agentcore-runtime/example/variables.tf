@@ -46,18 +46,6 @@ variable "s3_key" {
   default     = "runtime/app.zip"
 }
 
-variable "subnet_ids" {
-  description = "List of private subnet IDs for VPC configuration"
-  type        = list(string)
-  default     = ["subnet-0a1b2c3d4e5f00001", "subnet-0a1b2c3d4e5f00002"]
-}
-
-variable "security_group_ids" {
-  description = "List of security group IDs for VPC configuration"
-  type        = list(string)
-  default     = ["sg-0a1b2c3d4e5f67890"]
-}
-
 variable "tags" {
   description = "Additional tags"
   type        = map(string)
