@@ -1,3 +1,16 @@
+## [1.1.0](https://github.com/islamelkadi/terraform-aws-bedrock/compare/v1.0.2...v1.1.0) (2026-03-15)
+
+
+### Features
+
+* add manual triggering to release workflow ([9cd662d](https://github.com/islamelkadi/terraform-aws-bedrock/commit/9cd662df92e17f30b8cf528e182cdc9f0f1181ea))
+
+
+### Documentation
+
+* add GitHub Actions workflow status badges ([fa17e54](https://github.com/islamelkadi/terraform-aws-bedrock/commit/fa17e54ff46fa1da9e073bee19e356635be0bb73))
+* add security scan suppressions section to README ([9ce9fbd](https://github.com/islamelkadi/terraform-aws-bedrock/commit/9ce9fbd4bf36bf120861263c1c446845a0177881))
+
 ## [1.0.2](https://github.com/islamelkadi/terraform-aws-bedrock/compare/v1.0.1...v1.0.2) (2026-03-08)
 
 
